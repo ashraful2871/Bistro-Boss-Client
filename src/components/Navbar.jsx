@@ -37,18 +37,18 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="navbar fixed z-50 max-w-screen-2xl text-white">
+    <div className="navbar fixed z-50 max-w-screen-2xl text-white bg-black opacity-50">
       <div className="flex-1 ">
         <Link
           to="/"
-          className="text-xl md:text-3xl font-extrabold flex items-center"
+          className="text-xl md:text-3xl font-extrabold flex items-center uppercase"
         >
           <img
             className="h-16 w-16"
             src="https://i.ibb.co.com/D4YprTd/logo-removebg.png"
             alt=""
           />
-          Car Rent
+          Bistro Boss
         </Link>
       </div>
       <div className="flex-none">
