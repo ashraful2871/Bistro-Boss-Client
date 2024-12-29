@@ -39,16 +39,17 @@ const Navbar = () => {
   return (
     <div className="navbar fixed z-50 max-w-screen-2xl text-white bg-black opacity-50">
       <div className="flex-1 ">
-        <Link
-          to="/"
-          className="text-xl md:text-3xl font-extrabold flex items-center uppercase"
-        >
+        <Link to="/" className=" flex items-center uppercase">
           <img
             className="h-16 w-16"
             src="https://i.ibb.co.com/D4YprTd/logo-removebg.png"
             alt=""
           />
-          Bistro Boss
+          <div className="flex flex-col">
+            {" "}
+            <span className="text-2xl fontb"> Bistro Boss</span>
+            <span className="text-base">Restaurant</span>
+          </div>
         </Link>
       </div>
       <div className="flex-none">
