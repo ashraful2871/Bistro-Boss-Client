@@ -12,7 +12,7 @@ const Banner = () => {
   return (
     <div className="mt-5 mb-16">
       {" "}
-      <Carousel className="">
+      <Carousel>
         <div>
           <img src={img1} />
         </div>
