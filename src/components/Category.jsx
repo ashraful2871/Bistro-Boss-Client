@@ -25,7 +25,7 @@ const Category = () => {
       ></SectionHeading>
       <div className="max-w-screen-lg mx-auto mb-20">
         <Swiper
-          slidesPerView={3}
+          slidesPerView={4}
           spaceBetween={30}
           freeMode={true}
           pagination={{
@@ -55,6 +55,16 @@ const Category = () => {
             <h2 className="text-4xl text-white -mt-16 mb-8 text-center">
               salads
             </h2>
+          </SwiperSlide>
+          <SwiperSlide>
+            <img className="w-full" src={slide5} alt="" />
+            <h2 className="text-4xl text-white -mt-16 mb-8 text-center">
+              salads
+            </h2>
+          </SwiperSlide>
+          <SwiperSlide>
+            <img className="w-full" src={slide3} alt="" />
+            <h2 className="text-4xl text-white -mt-16 text-center">pizzas</h2>
           </SwiperSlide>
         </Swiper>
       </div>
