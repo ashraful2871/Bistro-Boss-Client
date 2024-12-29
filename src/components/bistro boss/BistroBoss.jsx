@@ -2,7 +2,7 @@ import React from "react";
 import "./bistroBoss.css";
 const BistroBoss = () => {
   return (
-    <div className="bg-bistro-boss h-[500px] px-28 py-28 max-w-screen-lg mx-auto mb-20  ">
+    <div className="bg-bistro-boss h-[500px] px-28 py-28 mb-20  ">
       <div className="text-center h-80 bg-base-100  py-24">
         <div className="w-[600px] mx-auto">
           {" "}
