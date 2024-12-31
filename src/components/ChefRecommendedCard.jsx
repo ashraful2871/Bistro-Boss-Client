@@ -1,17 +1,19 @@
 import React from "react";
 
-import cardImg from "../assets/home/card_imagge.png";
-
-const ChefRecommendedCard = () => {
+const ChefRecommendedCard = ({ item }) => {
+  const { name, recipe, image, price } = item;
   return (
-    <div className="">
+    <div>
       <div className="card bg-[#F3F3F3]">
         <figure>
-          <img className="w-full h-72" src={cardImg} alt="Shoes" />
+          <img className="w-full h-72" src={image} alt="Shoes" />
         </figure>
+        <p className="absolute bg-slate-900 text-white right-0 p-1 mr-4 mt-4">
+          ${price}
+        </p>
         <div className="card-body items-center text-center">
-          <h2 className="card-title">Caeser Salad</h2>
-          <p>Lettuce, Eggs, Parmesan Cheese, Chicken Breast Fillets.</p>
+          <h2 className="card-title">{name}</h2>
+          <p>{recipe}</p>
           <div className="card-actions">
             <button className="uppercase btn hover:bg-neutral bg-[#E8E8E8] border-b-4 border-b-[#BB8506] text-[#BB8506] hover:text-[#BB8506] hover:border-none">
               add to cart
