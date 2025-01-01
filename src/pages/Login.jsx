@@ -1,13 +1,21 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
   validateCaptcha,
 } from "react-simple-captcha";
+import { AuthContext } from "../provider/AuthProvider";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = () => {
+  const { login } = useContext(AuthContext);
   const captchaRef = useRef(null);
   const [disable, SetDisable] = useState(true);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location?.state?.from?.pathname || "/";
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
@@ -18,6 +26,20 @@ const Login = () => {
     const email = formData.get("email");
     const password = formData.get("password");
     console.log(email, password);
+
+    login(email, password)
+      .then((result) => {
+        console.log(result.user);
+        Swal.fire({
+          title: "User Login",
+          icon: "success",
+          draggable: true,
+        });
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   const handleValidateCaptcha = () => {
@@ -88,6 +110,13 @@ const Login = () => {
               </button>
             </div>
           </form>
+          <div>
+            <p>
+              <small>
+                do not have an account? <Link to="/signUP">sign uP</Link>
+              </small>
+            </p>
+          </div>
         </div>
         <div className="text-center lg:text-left">
           <h1 className="text-5xl font-bold">Login now!</h1>
