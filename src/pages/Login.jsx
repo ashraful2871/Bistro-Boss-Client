@@ -7,6 +7,7 @@ import {
 import { AuthContext } from "../provider/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import SocialLogin from "../components/social login/SocialLogin";
 
 const Login = () => {
   const { login } = useContext(AuthContext);
@@ -117,6 +118,7 @@ const Login = () => {
               </small>
             </p>
           </div>
+          <SocialLogin></SocialLogin>
         </div>
         <div className="text-center lg:text-left">
           <h1 className="text-5xl font-bold">Login now!</h1>

@@ -2,9 +2,12 @@ import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../provider/AuthProvider";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../components/Hooks/useAxiosPublic";
+import SocialLogin from "../../components/social login/SocialLogin";
 
 const SignUP = () => {
+  const axiosPublic = useAxiosPublic();
   const { createUser, userUpdateProfile, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const {
@@ -20,17 +23,26 @@ const SignUP = () => {
         console.log(user.result);
         userUpdateProfile(data.name, data.photoURL)
           .then(() => {
-            console.log("user profile updated");
-            reset();
-            Swal.fire({
-              position: "center",
-              icon: "success",
-              title: "Successfully signed up",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-            logout().then(() => {
-              navigate("/login");
+            //create user entry in database
+            const userInfo = {
+              name: data.name,
+              email: data.email,
+            };
+            axiosPublic.post("/users", userInfo).then((res) => {
+              console.log(res.data);
+              if (res.data.insertedId) {
+                reset();
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: "Successfully signed up",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                logout().then(() => {
+                  navigate("/login");
+                });
+              }
             });
           })
           .catch((error) => {
@@ -142,6 +154,14 @@ const SignUP = () => {
               <button className="btn btn-primary">Sign UP</button>
             </div>
           </form>
+          <div>
+            <p>
+              <small>
+                Already have an account? <Link to="/login">Sign In</Link>
+              </small>
+            </p>
+          </div>
+          <SocialLogin></SocialLogin>
         </div>
       </div>
     </div>
