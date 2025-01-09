@@ -5,6 +5,7 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../components/Hooks/useAxiosSecure";
 import Loading from "../../../components/Loading";
+import { Link } from "react-router-dom";
 
 const ManageItems = () => {
   const [menu, loading, refetch] = useMenu();
@@ -21,6 +22,7 @@ const ManageItems = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const res = await axiosSecure.delete(`/menu/${item._id}`);
+        console.log(res.data);
         if (res.data.deletedCount) {
           refetch();
           Swal.fire({
@@ -75,9 +77,11 @@ const ManageItems = () => {
                   <td>{item.name}</td>
                   <td>{item.price}</td>
                   <td>
-                    <button className="btn btn-ghost btn-lg bg-orange-500">
-                      <FaEdit className="text-white"></FaEdit>{" "}
-                    </button>
+                    <Link to={`/dashboard/updateItem/${item._id}`}>
+                      <button className="btn btn-ghost btn-lg bg-orange-500">
+                        <FaEdit className="text-white"></FaEdit>{" "}
+                      </button>
+                    </Link>
                   </td>
                   <td>
                     <button

@@ -12,6 +12,9 @@ import AllUsers from "../layout/dashboard/all users/AllUsers";
 import AddItems from "../layout/dashboard/add item/AddItems";
 import AdminRoute from "./AdminRoute";
 import ManageItems from "../layout/dashboard/mannage items/ManageItems";
+import UpdateItem from "../layout/dashboard/update item/UpdateItem";
+import Payment from "../layout/dashboard/payment/Payment";
+import PaymentHistory from "../layout/dashboard/payment history/PaymentHistory";
 
 export const router = createBrowserRouter([
   {
@@ -60,6 +63,14 @@ export const router = createBrowserRouter([
           </PrivetRoute>
         ),
       },
+      {
+        path: "payment",
+        element: <Payment></Payment>,
+      },
+      {
+        path: "paymentHistory",
+        element: <PaymentHistory></PaymentHistory>,
+      },
 
       //admin only routs
       {
@@ -82,6 +93,16 @@ export const router = createBrowserRouter([
             <AddItems></AddItems>
           </AdminRoute>
         ),
+      },
+      {
+        path: "updateItem/:id",
+        element: (
+          <AdminRoute>
+            <UpdateItem></UpdateItem>
+          </AdminRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/menu/${params.id}`),
       },
     ],
   },

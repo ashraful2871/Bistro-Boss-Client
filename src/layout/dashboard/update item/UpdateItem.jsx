@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SectionHeading from "../../../components/section heading/SectionHeading";
-import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../../components/Hooks/useAxiosPublic";
 import useAxiosSecure from "../../../components/Hooks/useAxiosSecure";
+import { useForm } from "react-hook-form";
+import { useLoaderData, useParams } from "react-router-dom";
+import axios from "axios";
 import Swal from "sweetalert2";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_upload_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
-const AddItems = () => {
+
+const UpdateItem = () => {
+  const item = useLoaderData();
+  const { category, image, name, price, recipe, _id } = item;
+
   const { register, handleSubmit, reset } = useForm();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
-
   const onSubmit = async (data) => {
     console.log(data);
     //upload to image bb to get url
@@ -33,15 +38,15 @@ const AddItems = () => {
         recipe: data.recipe,
         image: res.data.data.display_url,
       };
-      const menuRes = await axiosSecure.post("/menu", menuItem);
+      const menuRes = await axiosSecure.patch(`/menu/${_id}`, menuItem);
       console.log(menuRes.data);
-      if (menuRes.data.insertedId) {
+      if (menuRes.data.modifiedCount > 0) {
         //show popup
         reset();
         Swal.fire({
           position: "center",
           icon: "success",
-          title: `${data.name} added to the menu`,
+          title: `${data.name} updated to the menu`,
           showConfirmButton: false,
           timer: 1500,
         });
@@ -51,8 +56,8 @@ const AddItems = () => {
   return (
     <div>
       <SectionHeading
-        subHeading={"what's new"}
-        heading={"add an item"}
+        subHeading="update info"
+        heading="Update"
       ></SectionHeading>
 
       <div>
@@ -64,6 +69,7 @@ const AddItems = () => {
             <input
               {...register("name", { required: true })}
               type="text"
+              defaultValue={name}
               placeholder="Recipe Name"
               className="input input-bordered"
               required
@@ -75,7 +81,7 @@ const AddItems = () => {
                 <span className="label-text">Category*</span>
               </label>
               <select
-                defaultValue="default"
+                defaultValue={category}
                 {...register("category", { required: true })}
                 className="select select-bordered w-full"
               >
@@ -96,6 +102,7 @@ const AddItems = () => {
               <input
                 {...register("price", { required: true })}
                 type="number"
+                defaultValue={price}
                 placeholder="Price"
                 className="input input-bordered"
                 required
@@ -109,6 +116,7 @@ const AddItems = () => {
             </label>
             <textarea
               {...register("details", { required: true })}
+              defaultValue={recipe}
               className="textarea textarea-bordered"
               placeholder="Bio"
             ></textarea>
@@ -116,12 +124,13 @@ const AddItems = () => {
           <div>
             <input
               {...register("image", { required: true })}
+              //   defaultValue={image}
               type="file"
               className="file-input mt-5"
             />
           </div>
           <div className="mt-6">
-            <button className="btn btn-primary">Add Item</button>
+            <button className="btn btn-primary">Update item</button>
           </div>
         </form>
       </div>
@@ -129,4 +138,4 @@ const AddItems = () => {
   );
 };
 
-export default AddItems;
+export default UpdateItem;
