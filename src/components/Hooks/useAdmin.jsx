@@ -11,7 +11,7 @@ const useAdmin = () => {
   useEffect(() => {
     if (user?.email) {
       axiosSecure
-        .get(`/users/admin/${user.email}`)
+        .get(`/users/admin/${user?.email}`)
         .then((res) => {
           setIsAdmin(res.data.admin);
           setIsLoading(false);

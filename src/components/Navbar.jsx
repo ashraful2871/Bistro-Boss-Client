@@ -2,10 +2,12 @@ import React, { useContext, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../provider/AuthProvider";
 import useCart from "./Hooks/useCart";
+import useAdmin from "./Hooks/useAdmin";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const [cart] = useCart();
+  const [isAdmin] = useAdmin();
   console.log(cart);
   const handleLogOut = () => {
     logout();
@@ -22,6 +24,16 @@ const Navbar = () => {
       <li>
         <NavLink to="/order/salad">Order</NavLink>
       </li>
+      {user && isAdmin && (
+        <li>
+          <NavLink to="/dashboard/adminHome">Dashboard</NavLink>
+        </li>
+      )}
+      {user && isAdmin && (
+        <li>
+          <NavLink to="/dashboard/userHome">Dashboard</NavLink>
+        </li>
+      )}
       {user ? (
         <>
           <li>
